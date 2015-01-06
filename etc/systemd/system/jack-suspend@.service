@@ -1,0 +1,12 @@
+[Unit]
+Description=JACK suspend actions
+Before=sleep.target
+
+[Service]
+User=%I
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/jack_control stop
+
+[Install]
+WantedBy=sleep.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=JACK resume actions
+After=suspend.target hibernate.target
+
+[Service]
+User=%I
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=/bin/sh -c 'echo resume ; /usr/bin/sleep 5 ; for d in /sys/bus/firewire/devices/*; do /usr/bin/udevadm info --path "$d"; done | /bin/grep -q "^E: ID_FFADO=" && /usr/bin/jack_control start'
+
+[Install]
+WantedBy=suspend.target hibernate.target
