@@ -1,0 +1,11 @@
+[Unit]
+Description=VMware Networks
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/vmware/bin/vmware-networks --start
+ExecStop=/opt/vmware/bin/vmware-networks --stop
+
+[Install]
+WantedBy=graphical.target

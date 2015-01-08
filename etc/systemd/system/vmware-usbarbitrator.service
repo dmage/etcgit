@@ -1,0 +1,9 @@
+[Unit]
+Description=VMware USB Arbitration Service
+
+[Service]
+Type=simple
+ExecStart=/opt/vmware/bin/vmware-usbarbitrator -f
+
+[Install]
+WantedBy=graphical.target
