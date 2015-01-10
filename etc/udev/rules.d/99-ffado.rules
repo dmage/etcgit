@@ -1,2 +1,2 @@
-SUBSYSTEM=="firewire", ACTION=="add", ENV{ID_FFADO}="1", RUN+="/usr/bin/sudo -u dmage DISPLAY=:0 -i /usr/bin/jack_control start"
-SUBSYSTEM=="firewire", ACTION=="remove", ENV{ID_FFADO}="1", RUN+="/usr/bin/sudo -u dmage DISPLAY=:0 -i /usr/bin/jack_control stop"
+SUBSYSTEM=="firewire", ACTION=="add", ENV{ID_FFADO}="1", RUN+="/usr/bin/systemctl start jack-resume@dmage"
+SUBSYSTEM=="firewire", ACTION=="remove", ENV{ID_FFADO}="1", RUN+="/usr/bin/systemctl start jack-suspend@dmage"
