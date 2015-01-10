@@ -5,8 +5,7 @@ Before=sleep.target
 [Service]
 User=%I
 Type=oneshot
-Environment=DISPLAY=:0
-ExecStart=/usr/bin/jack_control stop
+ExecStart=/usr/local/bin/jack-suspend
 
 [Install]
 WantedBy=sleep.target

@@ -1,0 +1,9 @@
+#!/bin/sh
+DISPLAY=$(for pid in $(pgrep -u "$USER" "(^|/)dbus-daemon"); do cat /proc/$pid/environ | grep -aom 1 "\bDISPLAY=[:0-9]*" && break; done | sed -e "s/\bDISPLAY=//")
+export DISPLAY="${DISPLAY:-:0}"
+
+/usr/bin/sleep 5
+
+for d in /sys/bus/firewire/devices/*; do
+	/usr/bin/udevadm info --path "$d"
+done | /bin/grep -q "^E: ID_FFADO=" && /usr/bin/jack_control start

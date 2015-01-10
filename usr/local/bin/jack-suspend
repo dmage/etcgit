@@ -1,0 +1,5 @@
+#!/bin/sh
+DISPLAY=$(for pid in $(pgrep -u "$USER" "(^|/)dbus-daemon"); do cat /proc/$pid/environ | grep -aom 1 "\bDISPLAY=[:0-9]*" && break; done | sed -e "s/\bDISPLAY=//")
+export DISPLAY="${DISPLAY:-:0}"
+
+/usr/bin/jack_control stop
