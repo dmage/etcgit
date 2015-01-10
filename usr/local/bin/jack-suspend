@@ -1,5 +1,12 @@
 #!/bin/sh
-DISPLAY=$(for pid in $(pgrep -u "$USER" "(^|/)dbus-daemon"); do cat /proc/$pid/environ | grep -aom 1 "\bDISPLAY=[:0-9]*" && break; done | sed -e "s/\bDISPLAY=//")
-export DISPLAY="${DISPLAY:-:0}"
+USER=$(whoami)
+
+export DBUS_SESSION_BUS_ADDRESS=$(
+	for pid in $(pgrep -u "$USER"); do
+		grep -qz '^SHLVL=0$' /proc/$pid/environ 2>/dev/null && \
+			grep -z ^DBUS_SESSION_BUS_ADDRESS= /proc/$pid/environ && \
+			break
+	done | tr '\0' '\n' | sed -s 's/^[^=]*=//'
+)
 
 /usr/bin/jack_control stop
